@@ -16,15 +16,13 @@ driver.maximize_window()
 search_google('selidbe Zagreb')
 
 links = driver.find_elements_by_xpath('//*[@class="r"]/a[@href]')
-
+urls = []
 for link in links:
-    try:
-        url = link.get_attribute('href')
-        driver.get(url)
-        sel = Selector(text = driver.page_source)
-        driver.implicitly_wait(5)
-        search_google('selidbe Zagreb')
-    except:
-        print("Exception in url")
+    urls.append(link.get_attribute('href'))
+
+for url in urls:
+    driver.get(url)
+    sel = Selector(text = driver.page_source)
+    driver.implicitly_wait(5)
 
 driver.quit()
