@@ -13,14 +13,18 @@ def search_google(searchText):
 driver = webdriver.Chrome('D:/other/simple/scrapy/chromedriver_win32/chromedriver.exe')
 driver.maximize_window()
 
-search_google('selidbe Zagreb')
+search_texts = ['selidbe Zagreb', 'kombi prijevoz', 'kombi prijevoz Zagreb', 'jeftin kombi prijevoz']
 
-links = driver.find_elements_by_xpath('//*[@class="ad_cclk"]/a[@href]')
-urls = [link.get_attribute('href') for link in links]
+for search_text in search_texts:
 
-for url in urls:
-    driver.get(url)
-    sel = Selector(text = driver.page_source)
-    driver.implicitly_wait(10)
+    search_google(search_text)
+
+    links = driver.find_elements_by_xpath('//*[@class="ad_cclk"]/a[@href]')
+    urls = [link.get_attribute('href') for link in links]
+
+    for url in urls:
+        driver.get(url)
+        sel = Selector(text = driver.page_source)
+        driver.implicitly_wait(10)
 
 driver.quit()
