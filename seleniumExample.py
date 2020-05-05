@@ -16,13 +16,11 @@ driver.maximize_window()
 search_google('selidbe Zagreb')
 
 links = driver.find_elements_by_xpath('//*[@class="r"]/a[@href]')
-urls = []
-for link in links:
-    urls.append(link.get_attribute('href'))
+urls = [link.get_attribute('href') for link in links]
 
 for url in urls:
     driver.get(url)
     sel = Selector(text = driver.page_source)
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
 
 driver.quit()
